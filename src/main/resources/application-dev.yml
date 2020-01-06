@@ -32,8 +32,6 @@ example:
     dataSourceNum: 3
     # 每一个库分为5个相同的表结构
     tableNum: 5
-    # 指定路由的字段(必须指定)
-    routingFiled: orderId
     # 指定表后缀的命名风格
     tableSuffixStyle: "%04d"
     # 表后缀链接方式
