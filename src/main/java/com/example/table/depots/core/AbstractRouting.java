@@ -1,7 +1,6 @@
 package com.example.table.depots.core;
 
 import com.example.table.depots.constant.DepotsConstant;
-import com.example.table.depots.constant.MultiDsErrorEnum;
 import com.example.table.depots.exception.FormatTableSuffixException;
 import com.example.table.depots.exception.LoadRoutingStrategyUnMatch;
 import com.example.table.depots.support.DsRoutingSetProperties;
