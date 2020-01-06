@@ -38,13 +38,6 @@ example:
     tableSuffixConnect: _
     # 指定分库分表策略
     routingStrategy: ROUTING_DS_TABLE_STRATEGY
-## 配置每张表的路由字段
-routing:
-  routingFields:
-    ## order表根据orderId路由
-    order: orderId
-    ## user表根据userId路由
-    user: userId
 
 
 swagger:
