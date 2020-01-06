@@ -27,11 +27,6 @@ public class DsRoutingSetProperties {
   private Integer tableNum = 1;
 
   /**
-   * 路由字段 必须在配置文件中配置(不配置会抛出异常)
-   */
-  private String routingFiled;
-
-  /**
    * 所有生产写库数据有的名称
    */
   private Map<Integer, String> dataSourceKeysMapping;
