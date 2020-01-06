@@ -5,6 +5,7 @@ import com.example.table.entity.Order;
 import com.example.table.request.OrderRequest;
 import com.example.table.response.OrderVo;
 import com.example.table.service.OrderService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,11 +59,39 @@ public class OrderServiceImpl implements OrderService {
     return Order.toVo(orderMapper.findOrder(order));
   }
 
+  /**
+   * @Description 入参长度是10.需要执行10次sql查询，如果长度是100就要查询100
+   */
   @Override
   public List<OrderVo> findOrderByOrderIds(List<Long> orderIds) {
+    List<OrderVo> orders = new ArrayList<>();
+    for (Long id : orderIds) {
+      Order order = Order.builder().orderId(id).build();
+      Order exist = orderMapper.findOrder(order);
+      if (exist != null) {
+        orders.add(Order.toVo(exist));
+      }
+    }
+    return orders;
+  }
+
+
+  /**
+   * @Description 3个库，每个库5张表，共15个分区，每个分区扫描一次也可以得到全部结果集，扫描15次就可以
+   */
+  @Override
+  public List<OrderVo> findOrderByOrderIdsV2(List<Long> orderIds) {
+    List<OrderVo> orders = new ArrayList<>();
+
     return null;
   }
 
+  /**
+   * @Description userId不是路由字段，怎么击中数据呢？
+   * @Description ES OR Redis
+   * @Description userId 映射到 orderIds
+   * @Description orderIds 路由
+   */
   @Override
   public List<OrderVo> findOrderByUserId(Long userId) {
     return null;

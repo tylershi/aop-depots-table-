@@ -26,6 +26,11 @@ public interface OrderService {
   List<OrderVo> findOrderByOrderIds(List<Long> orderIds);
 
   /**
+   * @Description 含有路由字段的批处理
+   */
+  List<OrderVo> findOrderByOrderIdsV2(List<Long> orderIds);
+
+  /**
    * @Description 不含路由字段的单操作
    */
   List<OrderVo> findOrderByUserId(Long userId);

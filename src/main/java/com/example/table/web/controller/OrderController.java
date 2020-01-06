@@ -2,12 +2,15 @@ package com.example.table.web.controller;
 
 import com.example.table.exception.BaseResponse;
 import com.example.table.exception.SystemEvent;
+import com.example.table.request.ListOrderCondition;
 import com.example.table.request.OrderRequest;
 import com.example.table.response.OrderVo;
 import com.example.table.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import javax.validation.Valid;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -66,5 +69,17 @@ public class OrderController {
     }
     OrderVo order = orderService.findOrder(orderId);
     return BaseResponse.success(order);
+  }
+
+  @ApiOperation("根据批量订单id查找订单")
+  @PostMapping("/list/orderIds")
+  public BaseResponse<List<OrderVo>> findOrderByOrderIds(
+      @RequestBody ListOrderCondition condition) {
+    List<Long> orderIds = condition.getOrderIds();
+    if (CollectionUtils.isEmpty(orderIds)) {
+      return null;
+    }
+    List<OrderVo> data = orderService.findOrderByOrderIds(orderIds);
+    return BaseResponse.success(data);
   }
 }
