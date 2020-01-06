@@ -28,9 +28,6 @@ public class RoutingDsAndTbStrategy extends AbstractRouting {
     //放入线程变量
     MultiDataSourceHolder.setDataSourceKey(dataSourceKey);
 
-    log.info("根据路由字段:{},值:{},计算出数据库索引值:{},数据源key的值:{}",
-        getDsRoutingSetProperties().getRoutingFiled(), routingFiled, dsIndex, dataSourceKey);
-
     return dataSourceKey;
   }
 

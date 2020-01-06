@@ -22,7 +22,7 @@ public interface OrderMapper {
   @Router(routingFiled = "orderId")
   void updateOrder(Order order);
 
-  @Router(routingFiled = "orderId")
+  @Router
   Order findOrder(Order order);
 
 }

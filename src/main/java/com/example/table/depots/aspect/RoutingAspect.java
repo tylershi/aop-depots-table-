@@ -8,8 +8,12 @@ import com.example.table.depots.exception.LoadRoutingStrategyUnMatch;
 import com.example.table.depots.exception.ParamsNotContainsRoutingField;
 import com.example.table.depots.exception.RoutingFiledArgsIsNull;
 import com.example.table.entity.base.BaseEntity;
+import com.example.table.exception.BizException;
+import com.example.table.exception.SystemEvent;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import javax.persistence.Id;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.aspectj.lang.JoinPoint;
@@ -48,13 +52,9 @@ public class RoutingAspect {
   @Before("pointCut()")
   public void before(JoinPoint joinPoint)
       throws LoadRoutingStrategyUnMatch, RoutingFiledArgsIsNull, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-    //获取方法调用名称
-    Method method = getInvokeMethod(joinPoint);
 
-    //获取方法指定的注解
-    Router router = method.getAnnotation(Router.class);
     //获取指定的路由key
-    String routingFiled = router.routingFiled();
+    String routingFiled = getRoutingKey(joinPoint);
 
     //获取方法入参
     Object[] args = joinPoint.getArgs();
@@ -67,7 +67,8 @@ public class RoutingAspect {
         if (!StringUtils.isEmpty(routingFieldValue)) {
           String dbKey = routing.calDataSourceKey(routingFieldValue);
           String tableIndex = routing.calTableKey(routingFieldValue);
-          log.info("选择的db_key是:{},table_Key是:{}", dbKey, tableIndex);
+          log.info("路由field_value是:{},选择的db_key是:{},table_Key是:{}",
+              routingFieldValue, dbKey, tableIndex);
           if (arg instanceof BaseEntity) {
             ((BaseEntity) arg).setTableSuffix(tableIndex);
             ((BaseEntity) arg).setRealTableName(((BaseEntity) arg).getRealTableName());
@@ -85,6 +86,35 @@ public class RoutingAspect {
     }
 
   }
+
+  private String getRoutingKey(JoinPoint joinPoint) {
+    Method method = getInvokeMethod(joinPoint);
+    Router router = method.getAnnotation(Router.class);
+    String routingFiled = router.routingFiled();
+    // 如果注解中有routingKey 直接返回
+    if (!StringUtils.isEmpty(routingFiled)) {
+      log.info("路由routingFiled是:{}", routingFiled);
+      return routingFiled;
+    }
+    // 如果入参是entity对象，且字段有@Id注解，则返回该字段名字
+    Object[] args = joinPoint.getArgs();
+    if (args != null && args.length > 0) {
+      for (Object arg : args) {
+        if (arg instanceof BaseEntity) {
+          Field[] fields = arg.getClass().getDeclaredFields();
+          for (Field field : fields) {
+            Id annotation = field.getAnnotation(Id.class);
+            if (annotation != null) {
+              log.info("路由routingFiled是:{}", field.getName());
+              return field.getName();
+            }
+          }
+        }
+      }
+    }
+    throw new BizException(SystemEvent.ROUTING_FIELD_ARGS_ISNULL);
+  }
+
 
   private Method getInvokeMethod(JoinPoint joinPoint) {
     Signature signature = joinPoint.getSignature();

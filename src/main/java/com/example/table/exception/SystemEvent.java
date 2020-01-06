@@ -23,7 +23,7 @@ public enum SystemEvent {
 
   FORMAT_TABLE_SUFFIX_ERROR(10002, "格式化表后缀异常"),
 
-  PARAMS_NOT_CONTAINS_ROUTING_FIELD(10003, "入参中不包含路由字段");
+  PARAMS_NOT_CONTAINS_ROUTING_FIELD(10003, "无法找到路由字段");
 
   private Integer id;
 

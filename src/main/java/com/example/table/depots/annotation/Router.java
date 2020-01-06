@@ -17,5 +17,5 @@ import java.lang.annotation.Target;
 @Documented
 public @interface Router {
 
-  String routingFiled();
+  String routingFiled() default "";
 }

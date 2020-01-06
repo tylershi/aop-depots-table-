@@ -20,5 +20,10 @@ public class BizException extends RuntimeException {
     this.code = code;
   }
 
+  public BizException(SystemEvent event) {
+    super(event.getDetails());
+    this.code = event.getId();
+  }
+
 
 }
