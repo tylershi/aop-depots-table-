@@ -1,0 +1,53 @@
+spring:
+  datasource:
+    # 配置多个数据源属性(第一个数据库)
+    druid00username: order
+    druid00passwrod: order123
+    druid00jdbcUrl: jdbc:mysql://193.112.39.213:3306/order00
+    druid00driverClass: com.mysql.cj.jdbc.Driver
+
+    # 配置第二个数据源
+    druid01username: order
+    druid01passwrod: order123
+    druid01jdbcUrl: jdbc:mysql://193.112.39.213:3306/order01
+    druid01driverClass: com.mysql.cj.jdbc.Driver
+
+    # 配置第三个数据源
+    druid02username: order
+    druid02passwrod: order123
+    druid02jdbcUrl: jdbc:mysql://193.112.39.213:3306/order02
+    druid02driverClass: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  configuration:
+    ## 开启驼峰映射
+    map-underscore-to-camel-case: true
+    ## 启用延迟加载
+    lazy-loading-enabled: true
+
+# 配置分表分库设置属性
+example:
+  dsroutingset:
+    # 分三个数据库
+    dataSourceNum: 3
+    # 每一个库分为5个相同的表结构
+    tableNum: 5
+    # 指定路由的字段(必须指定)
+    routingFiled: orderId
+    # 指定表后缀的命名风格
+    tableSuffixStyle: "%04d"
+    # 表后缀链接方式
+    tableSuffixConnect: _
+    # 指定分库分表策略
+    routingStrategy: ROUTING_DS_TABLE_STRATEGY
+## 配置每张表的路由字段
+routing:
+  routingFields:
+    ## order表根据orderId路由
+    order: orderId
+    ## user表根据userId路由
+    user: userId
+
+
+swagger:
+  enable: true
