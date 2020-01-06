@@ -27,6 +27,7 @@ public class OrderServiceImpl implements OrderService {
 
   @Override
   public void saveOrder(OrderRequest request) {
+    // 实际情况下，这里的主键应该服务端生成，而不是接口传入 雪花算法或者redis获取
     Order order = Order.builder()
         .orderId(request.getOrderId())
         .userId(request.getUserId())
