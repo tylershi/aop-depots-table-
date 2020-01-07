@@ -2,6 +2,7 @@ package com.example.table.entity.base;
 
 import javax.persistence.Table;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @Author tyler.shi
@@ -26,7 +27,12 @@ public class BaseEntity {
     Table annotation = (Table) clazz.getAnnotation(Table.class);
     String tableName;
     if (annotation != null) {
-      tableName = annotation.name();
+      String name = annotation.name();
+      if (StringUtils.isNotBlank(name)) {
+        tableName = annotation.name();
+      } else {
+        tableName = clazz.getSimpleName();
+      }
     } else {
       tableName = clazz.getSimpleName();
     }
