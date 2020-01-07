@@ -2,6 +2,8 @@ package com.example.table.dao;
 
 import com.example.table.depots.annotation.Router;
 import com.example.table.entity.Order;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -24,5 +26,13 @@ public interface OrderMapper {
 
   @Router
   Order findOrder(Order order);
+
+  @Router
+  List<Order> findOrderByOrderIdsV2(@Param("order") Order order,
+      @Param("ids") List<Long> ids);
+
+  @Router
+  List<Order> findOrderByUserIdV1(@Param("order") Order order,
+      @Param("userId") Long userId);
 
 }

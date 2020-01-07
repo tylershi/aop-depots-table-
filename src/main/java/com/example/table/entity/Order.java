@@ -2,11 +2,15 @@ package com.example.table.entity;
 
 import com.example.table.entity.base.BaseEntity;
 import com.example.table.response.OrderVo;
+import com.google.common.collect.Lists;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.apache.commons.collections.CollectionUtils;
 
 /**
  * @Author tyler.shi
@@ -36,6 +40,17 @@ public class Order extends BaseEntity {
         .userId(order.getUserId())
         .money(order.getMoney())
         .build();
+  }
+
+  public static List<OrderVo> toVoList(List<Order> orders) {
+    if (CollectionUtils.isEmpty(orders)) {
+      return Lists.newArrayList();
+    }
+    List<OrderVo> result = new ArrayList<>();
+    for (Order order : orders) {
+      result.add(toVo(order));
+    }
+    return result;
   }
 
 }

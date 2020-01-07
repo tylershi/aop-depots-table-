@@ -30,4 +30,17 @@
     where order_id = #{orderId}
   </select>
 
+  <select id="findOrderByOrderIdsV2" resultType="com.example.table.entity.Order">
+    select * from ${order.realTableName}
+    where order_id in
+    <foreach collection="ids" item="id" separator="," open="(" close=")">
+      #{id}
+    </foreach>
+  </select>
+
+  <select id="findOrderByUserIdV1" resultType="com.example.table.entity.Order">
+    select * from ${order.realTableName}
+    where user_id = #{userId}
+  </select>
+
 </mapper>

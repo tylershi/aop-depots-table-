@@ -72,14 +72,51 @@ public class OrderController {
   }
 
   @ApiOperation("根据批量订单id查找订单")
-  @PostMapping("/list/orderIds")
-  public BaseResponse<List<OrderVo>> findOrderByOrderIds(
+  @PostMapping("/list/orderIds/v1")
+  public BaseResponse<List<OrderVo>> findOrderByOrderIdsV1(
       @RequestBody ListOrderCondition condition) {
     List<Long> orderIds = condition.getOrderIds();
     if (CollectionUtils.isEmpty(orderIds)) {
       return null;
     }
-    List<OrderVo> data = orderService.findOrderByOrderIds(orderIds);
+    List<OrderVo> data = orderService.findOrderByOrderIdsV1(orderIds);
     return BaseResponse.success(data);
   }
+
+  @ApiOperation("根据批量订单id查找订单")
+  @PostMapping("/list/orderIds/v2")
+  public BaseResponse<List<OrderVo>> findOrderByOrderIdsV2(
+      @RequestBody ListOrderCondition condition) {
+    List<Long> orderIds = condition.getOrderIds();
+    if (CollectionUtils.isEmpty(orderIds)) {
+      return null;
+    }
+    List<OrderVo> data = orderService.findOrderByOrderIdsV2(orderIds);
+    return BaseResponse.success(data);
+  }
+
+  @ApiOperation("根据批量订单id查找订单")
+  @PostMapping("/list/orderIds/v3")
+  public BaseResponse<List<OrderVo>> findOrderByOrderIdsV3(
+      @RequestBody ListOrderCondition condition) {
+    List<Long> orderIds = condition.getOrderIds();
+    if (CollectionUtils.isEmpty(orderIds)) {
+      return null;
+    }
+    List<OrderVo> data = orderService.findOrderByOrderIdsV3(orderIds);
+    return BaseResponse.success(data);
+  }
+
+
+  @ApiOperation("根据用户id查找订单")
+  @PostMapping("/list/userId/{userId}")
+  public BaseResponse<List<OrderVo>> findOrderByUserIdsV1(
+      @PathVariable(value = "userId") Long userId) {
+    if (userId < 1) {
+      return BaseResponse.success(null);
+    }
+    List<OrderVo> data = orderService.findOrderByUserIdV1(userId);
+    return BaseResponse.success(data);
+  }
+
 }

@@ -23,7 +23,7 @@ public interface OrderService {
   /**
    * @Description 含有路由字段的批处理
    */
-  List<OrderVo> findOrderByOrderIds(List<Long> orderIds);
+  List<OrderVo> findOrderByOrderIdsV1(List<Long> orderIds);
 
   /**
    * @Description 含有路由字段的批处理
@@ -31,14 +31,24 @@ public interface OrderService {
   List<OrderVo> findOrderByOrderIdsV2(List<Long> orderIds);
 
   /**
+   * @Description 含有路由字段的批处理
+   */
+  List<OrderVo> findOrderByOrderIdsV3(List<Long> orderIds);
+
+  /**
    * @Description 不含路由字段的单操作
    */
-  List<OrderVo> findOrderByUserId(Long userId);
+  List<OrderVo> findOrderByUserIdV1(Long userId);
+
+  /**
+   * @Description 不含路由字段的单操作
+   */
+  List<OrderVo> findOrderByUserIdV2(Long userId);
 
   /**
    * @Description 不含路有字段的批处理
    */
-  List<OrderVo> findOrderByUserIds(List<Long> userIds);
+  List<OrderVo> findOrderByUserIdsAndPage(List<Long> userIds, int pageNum, int pageSize);
 
 
 }
