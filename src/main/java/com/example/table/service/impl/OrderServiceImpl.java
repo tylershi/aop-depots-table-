@@ -208,7 +208,7 @@ public class OrderServiceImpl implements OrderService {
   }
 
   /**
-   * 查询每个userId
+   * @Description 查询每个userIdd的订单，金额倒序排列
    *
    * @param userIds
    * @return

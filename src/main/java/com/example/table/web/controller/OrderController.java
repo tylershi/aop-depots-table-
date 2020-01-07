@@ -1,5 +1,6 @@
 package com.example.table.web.controller;
 
+import com.example.table.depots.annotation.TimeLogger;
 import com.example.table.exception.BaseResponse;
 import com.example.table.exception.SystemEvent;
 import com.example.table.request.ListOrderCondition;
@@ -73,6 +74,7 @@ public class OrderController {
 
   @ApiOperation("根据批量订单id查找订单")
   @PostMapping("/list/orderIds/v1")
+  @TimeLogger
   public BaseResponse<List<OrderVo>> findOrderByOrderIdsV1(
       @RequestBody ListOrderCondition condition) {
     List<Long> orderIds = condition.getOrderIds();
@@ -85,6 +87,7 @@ public class OrderController {
 
   @ApiOperation("根据批量订单id查找订单")
   @PostMapping("/list/orderIds/v2")
+  @TimeLogger
   public BaseResponse<List<OrderVo>> findOrderByOrderIdsV2(
       @RequestBody ListOrderCondition condition) {
     List<Long> orderIds = condition.getOrderIds();
@@ -97,6 +100,7 @@ public class OrderController {
 
   @ApiOperation("根据批量订单id查找订单")
   @PostMapping("/list/orderIds/v3")
+  @TimeLogger
   public BaseResponse<List<OrderVo>> findOrderByOrderIdsV3(
       @RequestBody ListOrderCondition condition) {
     List<Long> orderIds = condition.getOrderIds();
@@ -110,6 +114,7 @@ public class OrderController {
 
   @ApiOperation("根据用户id查找订单")
   @PostMapping("/list/userId/{userId}")
+  @TimeLogger
   public BaseResponse<List<OrderVo>> findOrderByUserIdsV1(
       @PathVariable(value = "userId") Long userId) {
     if (userId < 1) {

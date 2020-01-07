@@ -75,7 +75,7 @@ public abstract class AbstractRouting implements IRouting, InitializingBean {
   private void checkRoutingDsTableStrategyConfig() {
     if (dsRoutingSetProperties.getTableNum() <= 1
         || dsRoutingSetProperties.getDataSourceNum() <= 1) {
-      log.error("你的配置项routingStategy:{}是多库多表配置,数据库个数>1," +
+      log.error("你的配置项routingStrategy:{}是多库多表配置,数据库个数>1," +
               "每一个库中表的个数必须>1,您的配置:数据库个数:{},表的个数:{}",
           dsRoutingSetProperties.getRoutingStrategy(),
           dsRoutingSetProperties.getDataSourceNum(),
@@ -90,7 +90,7 @@ public abstract class AbstractRouting implements IRouting, InitializingBean {
   private void checkRoutingDsStrategyConfig() {
     if (dsRoutingSetProperties.getTableNum() != 1
         || dsRoutingSetProperties.getDataSourceNum() <= 1) {
-      log.error("你的配置项routingStategy:{}是多库一表配置,数据库个数>1," +
+      log.error("你的配置项routingStrategy:{}是多库一表配置,数据库个数>1," +
               "每一个库中表的个数必须=1,您的配置:数据库个数:{},表的个数:{}",
           dsRoutingSetProperties.getRoutingStrategy(),
           dsRoutingSetProperties.getDataSourceNum(),
@@ -105,7 +105,7 @@ public abstract class AbstractRouting implements IRouting, InitializingBean {
   private void checkRoutingTableStrategyConfig() {
     if (dsRoutingSetProperties.getTableNum() <= 1
         || dsRoutingSetProperties.getDataSourceNum() != 1) {
-      log.error("你的配置项routingStategy:{}是一库多表配置,数据库个数=1," +
+      log.error("你的配置项routingStrategy:{}是一库多表配置,数据库个数=1," +
               "每一个库中表的个数必须>1,您的配置:数据库个数:{},表的个数:{}",
           dsRoutingSetProperties.getRoutingStrategy(),
           dsRoutingSetProperties.getDataSourceNum(),
