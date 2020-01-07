@@ -21,6 +21,11 @@ public interface OrderService {
   OrderVo findOrder(Long id);
 
   /**
+   * @Description 清空所有分区表
+   */
+  void flushAll();
+
+  /**
    * @Description 含有路由字段的批处理
    */
   List<OrderVo> findOrderByOrderIdsV1(List<Long> orderIds);
