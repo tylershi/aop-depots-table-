@@ -67,6 +67,14 @@ public class OrderServiceImpl implements OrderService {
     return Order.toVo(orderMapper.findOrder(order));
   }
 
+  @Override
+  public void flushAll() {
+    List<Order> fullTables = getFullTables();
+    for (Order order : fullTables) {
+      orderMapper.flushDb(order);
+    }
+  }
+
   /**
    * @Description planA
    * @Description 入参长度是n.需要执行n次sql查询
@@ -208,13 +216,14 @@ public class OrderServiceImpl implements OrderService {
   }
 
   /**
-   * @Description 查询每个userIdd的订单，金额倒序排列
-   *
    * @param userIds
    * @return
+   * @Description 查询每个userIdd的订单，金额倒序排列
    */
   @Override
   public List<OrderVo> findOrderByUserIdsAndPage(List<Long> userIds, int pageNum, int pageSize) {
     return null;
   }
+
+
 }

@@ -124,4 +124,12 @@ public class OrderController {
     return BaseResponse.success(data);
   }
 
+  @ApiOperation("清空数据库所有数据")
+  @GetMapping("/flashAll")
+  @TimeLogger
+  public BaseResponse<String> flashAll() {
+    orderService.flushAll();
+    return BaseResponse.success("清库成功");
+  }
+
 }

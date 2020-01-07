@@ -25,6 +25,9 @@ public interface OrderMapper {
   void updateOrder(Order order);
 
   @Router
+  void flushDb(Order order);
+
+  @Router
   Order findOrder(Order order);
 
   @Router
@@ -34,5 +37,7 @@ public interface OrderMapper {
   @Router
   List<Order> findOrderByUserIdV1(@Param("order") Order order,
       @Param("userId") Long userId);
+
+
 
 }

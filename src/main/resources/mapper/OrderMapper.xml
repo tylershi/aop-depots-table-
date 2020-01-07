@@ -30,6 +30,10 @@
     where order_id = #{orderId}
   </select>
 
+  <delete id="flushDb">
+    delete from ${realTableName}
+  </delete>
+
   <select id="findOrderByOrderIdsV2" resultType="com.example.table.entity.Order">
     select * from ${order.realTableName}
     where order_id in
