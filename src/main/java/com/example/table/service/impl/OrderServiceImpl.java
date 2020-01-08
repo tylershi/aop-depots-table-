@@ -186,6 +186,7 @@ public class OrderServiceImpl implements OrderService {
 
 
   /**
+   * @Description 非路由字段的查询
    * @Description planA
    * @Description 扫描所有的分区表
    * @Description 查询次数m*n
@@ -207,7 +208,7 @@ public class OrderServiceImpl implements OrderService {
    * @Description planB
    * @Description userId不是路由字段，怎么击中数据呢？
    * @Description ES OR Redis 存贮 userId 与 orderId的映射关系
-   * @Description 获取orderId结果集 然后根据orderId 路由击中数据
+   * @Description 获取orderId结果集 然后根据orderId 路由击中数据  这个过程相当于mysql里面的回表
    * @Description 但是 userId -> orderIds 数据同步Redis Or ES 实时性、一致性如何保证(CAP)
    */
   @Override
