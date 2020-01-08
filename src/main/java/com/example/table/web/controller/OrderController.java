@@ -40,6 +40,7 @@ public class OrderController {
 
   @ApiOperation("保存订单")
   @PostMapping("/save")
+  @TimeLogger
   public BaseResponse<String> saveOrder(@Valid @RequestBody OrderRequest request) {
     orderService.saveOrder(request);
     return BaseResponse.success("保存订单成功");
@@ -47,6 +48,7 @@ public class OrderController {
 
   @ApiOperation("删除订单")
   @GetMapping("/delete/{orderId}")
+  @TimeLogger
   public BaseResponse<String> deleteOrder(@Valid @PathVariable Long orderId) {
     if (orderId < 1) {
       BaseResponse.error(SystemEvent.ORDER_ID_IS_INVALID);
@@ -57,6 +59,7 @@ public class OrderController {
 
   @ApiOperation("更新订单")
   @PostMapping("/update")
+  @TimeLogger
   public BaseResponse<String> updateOrder(@Valid @RequestBody OrderRequest request) {
     orderService.updateOrder(request);
     return BaseResponse.success("更新订单成功");
@@ -64,6 +67,7 @@ public class OrderController {
 
   @ApiOperation("查找订单")
   @PostMapping("/find/{orderId}")
+  @TimeLogger
   public BaseResponse<OrderVo> findOrder(@Valid @PathVariable Long orderId) {
     if (orderId < 1) {
       BaseResponse.error(SystemEvent.ORDER_ID_IS_INVALID);

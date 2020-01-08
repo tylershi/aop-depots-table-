@@ -67,8 +67,9 @@ public class RoutingAspect {
         if (!StringUtils.isEmpty(routingFieldValue)) {
           String dbKey = routing.calDataSourceKey(routingFieldValue);
           String tableIndex = routing.calTableKey(routingFieldValue);
-          log.info("路由field_value是:{},选择的db_key是:{},table_Key是:{}",
-              routingFieldValue, dbKey, tableIndex);
+          log.info("路由字段routing_field是:{},路由字段值routing_field_value是:{},"
+                  + "选择的数据源db_key是:{},选择的分区表table_key是:{}",
+              routingFiled, routingFieldValue, dbKey, tableIndex);
           if (arg instanceof BaseEntity) {
             ((BaseEntity) arg).setTableSuffix(tableIndex);
             ((BaseEntity) arg).setRealTableName(((BaseEntity) arg).getRealTableName());
@@ -93,7 +94,6 @@ public class RoutingAspect {
     String routingFiled = router.routingFiled();
     // 如果注解中有routingKey 直接返回
     if (!StringUtils.isEmpty(routingFiled)) {
-      log.info("路由routingFiled是:{}", routingFiled);
       return routingFiled;
     }
     // 如果入参是entity对象，且字段有@Id注解，则返回该字段名字
@@ -105,7 +105,6 @@ public class RoutingAspect {
           for (Field field : fields) {
             Id annotation = field.getAnnotation(Id.class);
             if (annotation != null) {
-              log.info("路由routingFiled是:{}", field.getName());
               return field.getName();
             }
           }
