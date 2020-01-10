@@ -16,8 +16,8 @@ import java.lang.reflect.Method;
 import javax.persistence.Id;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -25,7 +25,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 /**
  * @Author tyler.shi
@@ -64,7 +63,7 @@ public class RoutingAspect {
     if (args != null && args.length > 0) {
       for (Object arg : args) {
         String routingFieldValue = BeanUtils.getProperty(arg, routingFiled);
-        if (!StringUtils.isEmpty(routingFieldValue)) {
+        if (StringUtils.isNotBlank(routingFieldValue)) {
           String dbKey = routing.calDataSourceKey(routingFieldValue);
           String tableIndex = routing.calTableKey(routingFieldValue);
           log.info("路由字段routing_field是:{},路由字段值routing_field_value是:{},"
@@ -89,11 +88,11 @@ public class RoutingAspect {
   }
 
   private String getRoutingKey(JoinPoint joinPoint) {
-    Method method = getInvokeMethod(joinPoint);
+    Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
     Router router = method.getAnnotation(Router.class);
     String routingFiled = router.routingFiled();
     // 如果注解中有routingKey 直接返回
-    if (!StringUtils.isEmpty(routingFiled)) {
+    if (StringUtils.isNotBlank(routingFiled)) {
       return routingFiled;
     }
     // 如果入参是entity对象，且字段有@Id注解，则返回该字段名字
@@ -114,12 +113,6 @@ public class RoutingAspect {
     throw new BizException(SystemEvent.ROUTING_FIELD_ARGS_ISNULL);
   }
 
-
-  private Method getInvokeMethod(JoinPoint joinPoint) {
-    Signature signature = joinPoint.getSignature();
-    MethodSignature methodSignature = (MethodSignature) signature;
-    return methodSignature.getMethod();
-  }
 
   /**
    * @Description 清除线程缓存
