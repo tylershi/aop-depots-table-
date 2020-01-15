@@ -13,6 +13,7 @@ import java.util.List;
 import javax.validation.Valid;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,7 +48,7 @@ public class OrderController {
   }
 
   @ApiOperation("删除订单")
-  @GetMapping("/delete/{orderId}")
+  @DeleteMapping("/delete/{orderId}")
   @TimeLogger
   public BaseResponse<String> deleteOrder(@Valid @PathVariable Long orderId) {
     if (orderId < 1) {
@@ -66,7 +67,7 @@ public class OrderController {
   }
 
   @ApiOperation("查找订单")
-  @PostMapping("/find/{orderId}")
+  @GetMapping("/find/{orderId}")
   @TimeLogger
   public BaseResponse<OrderVo> findOrder(@Valid @PathVariable Long orderId) {
     if (orderId < 1) {
@@ -129,7 +130,7 @@ public class OrderController {
   }
 
   @ApiOperation("清空数据库所有数据")
-  @GetMapping("/flashAll")
+  @DeleteMapping("/flashAll")
   @TimeLogger
   public BaseResponse<String> flashAll() {
     orderService.flushAll();
