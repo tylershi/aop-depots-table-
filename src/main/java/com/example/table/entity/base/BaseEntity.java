@@ -29,12 +29,12 @@ public class BaseEntity {
     if (annotation != null) {
       String name = annotation.name();
       if (StringUtils.isNotBlank(name)) {
-        tableName = annotation.name();
+        tableName = name;
       } else {
-        tableName = clazz.getSimpleName();
+        tableName = clazz.getSimpleName().toLowerCase();
       }
     } else {
-      tableName = clazz.getSimpleName();
+      tableName = clazz.getSimpleName().toLowerCase();
     }
     return tableName + tableSuffix;
   }
