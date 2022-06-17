@@ -20,7 +20,7 @@
     <mybatis.version>2.1.1</mybatis.version>
     <tk.mybatis.version>2.1.5</tk.mybatis.version>
     <common.lang.version>3.8.1</common.lang.version>
-    <fastjson.version>1.2.58</fastjson.version>
+    <fastjson.version>1.2.83</fastjson.version>
     <swagger.version>2.7.0</swagger.version>
   </properties>
 
